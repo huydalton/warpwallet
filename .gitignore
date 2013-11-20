@@ -4,3 +4,5 @@ node_modules/
 npm-debug.log
 test/gen/py-venv
 test/browser/test.js
+.bundle
+node_modules
