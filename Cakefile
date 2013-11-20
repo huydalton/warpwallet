@@ -22,7 +22,7 @@ crypto      = require('crypto')
 
 build = (cb) ->
   esc = make_esc cb, "build"
-  latest = "./web/warp_latest.html"    
+  latest = "./web/warp_latest.html"
   await do_browserify defer()
   await fs.readFile "./warp_src.html", {encoding: "utf8"}, esc defer html
   await token_build_and_drop html, defer html
@@ -32,7 +32,7 @@ build = (cb) ->
     await fs.unlink latest, esc defer() unless err?
     console.log "Writing #{html.length} chars." + if old_html? then " (Changed from #{old_html.length} chars)" else ""
     sha256 = hash_data html
-    fullname = "warp_#{version}_SHA256_#{sha256}.html"       
+    fullname = "warp_#{version}_SHA256_#{sha256}.html"
     await fs.writeFile "./web/#{fullname}", html, {encoding: "utf8"}, esc defer()
     await fs.symlink fullname, latest, esc defer()
     # delete any old copies of this version
@@ -40,18 +40,16 @@ build = (cb) ->
   cb null
 
 task 'build', "build the html file", (cb) ->
-  await build defer err
-  throw err if err?
   cb?()
 
-task 'watch', "build repeatedly", (cb) ->  
+task 'watch', "build repeatedly", (cb) ->
   await build defer err
   ready = false
   b = new brew {
     match:    /^.*$/
     includes: ['./src/', './warp_src.html']
-    compile:  (path, txt, cb)  -> cb null, txt 
-    join:     (strs, cb)       -> cb null, (strs.join "\n") 
+    compile:  (path, txt, cb)  -> cb null, txt
+    join:     (strs, cb)       -> cb null, (strs.join "\n")
     compress: (str,  cb)    -> cb null, str
     onChange: ->
       while not b.isReady()
@@ -70,7 +68,7 @@ hash_data = (data) ->
 clean_old_ones = (new_one, cb) ->
   await fs.readdir "./web", defer err, files
   rxx = "warp_#{version}_SHA256_([a-f0-9]+)\.html"
-  for file in files 
+  for file in files
     if ((m = file.match rxx)? and (m[1] isnt new_one))
       await fs.unlink "./web/#{file}", defer err
   cb()
@@ -120,4 +118,4 @@ do_browserify = (cb) ->
   throw err if err?
   await fs.writeFile "./src/js/deps.js", res, { encoding : "utf8" }, defer err
   throw err if err?
-  cb() 
+  cb()

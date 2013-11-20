@@ -10,8 +10,8 @@
     },
     "vectors": [
         {
-            "passphrase": "ER8FT+HFjk0",
-            "salt": "7DpniYifN6c",
+            "passphrase": "A8",
+            "salt": "",
             "seeds": [
                 "b58e47817de4d3901694b68bc8566ed5af9bec21e7a3bd56be114e2004ac148b",
                 "daab156024167271f4f894e91213f6cd52cd243dd19c7126075d0c1debeef114",
