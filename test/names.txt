@@ -1,12 +1,10 @@
 theymos
 hugolp
 ThePiachu
-rbitcoin-bot
 MiningBuddy
 JordanTheBrobot
 judah_mu
 whollyhemp
-AutoModerator
 zeitplan
 Jucie_Potatochip
 JerryMoran
@@ -201,7 +199,6 @@ pcguy8088_
 LuizaR
 Scientologist2a
 33law55
-worldnewsbot
 HEktoRaS
 MLNYC
 g4f

@@ -4,9 +4,8 @@ require 'json'
 
 agent = Mechanize.new
 
-lines = File.open('test/names.txt').read
-
-set = Set.new(lines.split("\n"))
+set = File.open('test/names.txt').read.split("\n")
+tested_names = File.open('./test_names.txt').read.split("\n")
 
 # File.open('test/names.txt', 'w+') do |f|
 
@@ -27,6 +26,7 @@ set = Set.new(lines.split("\n"))
 perms = set.to_a.permutation(2).to_a
 perms = perms.map{|a| a.join(" ") }
 
+
 json = {
     "params" => {
         "N" => 18,
@@ -36,7 +36,7 @@ json = {
         "pbkdf2c" => 65536
     }
 }
-json['vectors'] = perms.shuffle.map do |l|
+json['vectors'] = (perms.shuffle - tested_names).map do |l|
   {
     :passphrase => l
   }
@@ -45,4 +45,3 @@ end
 File.open('test/spec.json', 'w') do |f|
   f.write(JSON.pretty_generate(json))
 end
-
